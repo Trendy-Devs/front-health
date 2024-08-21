@@ -85,47 +85,55 @@ const PostModal = ({ isOpen, isClose, post }) => {
             <img src={post.imageurl} alt="" className={styles.modalImage} />
           </div>
         )}
-        <div className={styles.modalBody}>
-          <div className={styles.modalHeader}>
-            <div className={styles.username}>작성자: {post.user.userId}</div>
-            <div className={styles.date}>작성일: {new Date(post.todayCreated).toLocaleDateString()}</div>
-          </div>
-          <div className={styles.modalText}>
-            <p className={styles.modalDescription}>{post.todayContents}</p>
-          </div>
-          <div className={styles.likeSection}>
-            <div className={styles.heart} onClick={toggleLike}>
-              {isLiked ? <AiFillHeart style={{ color: 'red' }} /> : <AiOutlineHeart />} {likes}
-            </div>
-          </div>
-        </div>
-        <div className={styles.commentSection}>
-          <div className={styles.commentList}>
-            {comments.map((comment, index) => (
-              <div key={index} className={styles.comment}>
-                <div className={styles.commentHeader}>
-                  <span className={styles.commentUsername}>{comment.user.userId}</span>
-                  <span className={styles.commentDate}>{new Date(comment.todayCommentsCreated).toLocaleDateString()}</span>
-                </div>
-                <div className={styles.commentText}>
-                  {comment.todayCommentsContents}
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className={styles.commentForm}>
-            <input
-              type="text"
-              className={styles.commentInput}
-              value={newComment}
-              onChange={(e) => setNewComment(e.target.value)}
-              placeholder="댓글을 입력하세요..."
-            />
-            <button className={styles.commentButton} onClick={handleAddComment}>게시</button>
-          </div>
-        </div>
-        <button className={styles.closeButton} onClick={isClose}>×</button>
+        <div className={styles.commentHeaderSection}>
+      <div className={styles.username}>작성자: {post.user.userId}</div>
+      <div className={styles.date}>작성일: {new Date(post.todayCreated).toLocaleDateString()}</div>
+    </div>
+
+    <div className={styles.modalBody}>
+      <div className={styles.modalText}>
+        <p className={styles.modalDescription}>{post.todayContents}</p>
       </div>
+    </div>
+
+    <div className={styles.footerSection}>
+      {/* 좋아요 버튼 */}
+      <div className={styles.likeSection}>
+        <div className={styles.heart} onClick={toggleLike}>
+          {isLiked ? <AiFillHeart style={{ color: 'red' }} /> : <AiOutlineHeart />} {likes}
+        </div>
+      </div>
+
+      {/* 댓글 섹션 */}
+      <div className={styles.commentSection}>
+        <div className={styles.commentList}>
+          {comments.map((comment, index) => (
+            <div key={index} className={styles.comment}>
+              <div className={styles.commentHeader}>
+                <span className={styles.commentUsername}>{comment.user.userId}</span>
+                <span className={styles.commentDate}>{new Date(comment.todayCommentsCreated).toLocaleDateString()}</span>
+              </div>
+              <div className={styles.commentText}>
+                {comment.todayCommentsContents}
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className={styles.commentForm}>
+          <input
+            type="text"
+            className={styles.commentInput}
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+            placeholder="댓글을 입력하세요..."
+          />
+          <button className={styles.commentButton} onClick={handleAddComment}>게시</button>
+        </div>
+      </div>
+    </div>
+    
+    <button className={styles.closeButton} onClick={isClose}>×</button>
+  </div>
     </Modal>
   );
 };
